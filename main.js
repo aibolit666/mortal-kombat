@@ -1,16 +1,26 @@
-const player = {
+const player1 = {
   name: "Subzero",
-  hp: 100,
-  img: "",
-  weapron: ["Iceblade", "Snowballs"],
+  hp: 80,
+  img: "http://reactmarathon-api.herokuapp.com/assets/subzero.gif",
+  weapron: ["Snowballs"],
   attack: function () {
     console.log(player1.name + " Fight...");
   },
 };
 
-function createPlayer() {
-  const $player1 = document.createElement("div");
-  $player1.classList.add("player1");
+const player2 = {
+  name: "Sonya",
+  hp: 20,
+  img: "http://reactmarathon-api.herokuapp.com/assets/sonya.gif",
+  weapron: ["Legs"],
+  attack: function () {
+    console.log(player2.name + " Fight...");
+  },
+};
+
+function createPlayer(playerClass, player) {
+  const $player = document.createElement("div");
+  $player.classList.add(playerClass);
 
   const $progressbar = document.createElement("div");
   $progressbar.classList.add("progressbar");
@@ -20,20 +30,26 @@ function createPlayer() {
 
   const $life = document.createElement("div");
   $life.classList.add("life");
-  $life.style.width = "100%";
+  $life.style.width = player.hp + "%";
 
   const $name = document.createElement("div");
   $name.classList.add("name");
-  $name.innerText = "Subzero";
+  $name.innerText = player.name;
 
   const $img = document.createElement("img");
-  $img.src = "http://reactmarathon-api.herokuapp.com/assets/subzero.gif";
+  $img.src = player.img;
 
   const $root = document.querySelector(".root");
-  $root.appendChild($player1);
-  $player1.appendChild($progressbar);
+  $root.appendChild($player);
+  $player.appendChild($progressbar);
   $progressbar.appendChild($life);
   $progressbar.appendChild($name);
-  $player1.appendChild($character);
+  $player.appendChild($character);
   $character.appendChild($img);
+
+  const $arenas = document.querySelector(".arenas");
+  $arenas.appendChild($player);
 }
+
+createPlayer("player1", player1);
+createPlayer("player2", player2);
