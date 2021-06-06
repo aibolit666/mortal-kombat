@@ -1,5 +1,6 @@
 const $arenas = document.querySelector(".arenas");
 const $randomButton = document.querySelector(".button");
+let winner = 0;
 
 const player1 = {
   player: 1,
@@ -51,25 +52,23 @@ function createPlayer(playerObj) {
   return $player;
 }
 
-function playerLose(name) {
-  const $loseTitle = createElement("div", "loseTitle");
-
+function playerWin(name) {
+  const $winTitle = createElement("div", "winTitle");
   if (name === player1.name) {
-    $loseTitle.innerText = player2.name + " " + "wins";
+    $winTitle.innerText = player2.name + " wins";
   } else {
-    $loseTitle.innerText = player1.name + " " + "wins";
+    $winTitle.innerText = player1.name + " wins";
   }
-
-  return $loseTitle;
+  return $winTitle;
 }
 
 function randomHIT() {
-  return Math.ceil(Math.random() * 20);
+  return Math.floor(Math.random() * 20);
 }
 
 function changeHP(player) {
   const $playerLife = document.querySelector(
-    ".player" + player.player + " " + ".life"
+    ".player" + player.player + " .life"
   );
   player.hp -= randomHIT();
   $playerLife.style.width = player.hp + "%";
@@ -77,7 +76,7 @@ function changeHP(player) {
   if (player.hp <= 0) {
     player.hp = 0;
     $playerLife.style.width = player.hp + "%";
-    $arenas.appendChild(playerLose(player.name));
+    $arenas.appendChild(playerWin(player.name));
     $randomButton.disabled = true;
   }
 }
