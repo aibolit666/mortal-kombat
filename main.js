@@ -59,6 +59,7 @@ function playerLose(name) {
   } else {
     $loseTitle.innerText = player1.name + " " + "wins";
   }
+  $randomButton.disabled = true;
   return $loseTitle;
 }
 
