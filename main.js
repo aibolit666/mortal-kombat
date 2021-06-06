@@ -59,21 +59,26 @@ function playerLose(name) {
   } else {
     $loseTitle.innerText = player1.name + " " + "wins";
   }
-  $randomButton.disabled = true;
+
   return $loseTitle;
+}
+
+function randomHIT() {
+  return Math.ceil(Math.random() * 20);
 }
 
 function changeHP(player) {
   const $playerLife = document.querySelector(
     ".player" + player.player + " " + ".life"
   );
-  player.hp -= Math.ceil(Math.random() * 20);
+  player.hp -= randomHIT();
   $playerLife.style.width = player.hp + "%";
 
   if (player.hp <= 0) {
     player.hp = 0;
     $playerLife.style.width = player.hp + "%";
     $arenas.appendChild(playerLose(player.name));
+    $randomButton.disabled = true;
   }
 }
 
