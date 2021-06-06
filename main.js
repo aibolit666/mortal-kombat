@@ -53,7 +53,12 @@ function createPlayer(playerObj) {
 
 function playerLose(name) {
   const $loseTitle = createElement("div", "loseTitle");
-  $loseTitle.innerText = name + " " + "lose";
+
+  if (name === player1.name) {
+    $loseTitle.innerText = player2.name + " " + "wins";
+  } else {
+    $loseTitle.innerText = player1.name + " " + "wins";
+  }
   return $loseTitle;
 }
 
@@ -68,7 +73,6 @@ function changeHP(player) {
     player.hp = 0;
     $playerLife.style.width = player.hp + "%";
     $arenas.appendChild(playerLose(player.name));
-    $randomButton.disabled = true;
   }
 }
 
