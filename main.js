@@ -88,6 +88,21 @@ function changeHP(num) {
   }
 }
 
+function createReloadButton() {
+  const $reloadWrap = createElement("div", "reloadWrap");
+  const $button = document.querySelector(".button");
+
+  $button.innerText = "Restart";
+
+  $arenas.appendChild($reloadWrap);
+  $reloadWrap.appendChild($button);
+
+  $button.addEventListener("click", function () {
+    window.location.reload();
+  });
+  return $reloadWrap;
+}
+
 $randomButton.addEventListener("click", function () {
   player1.changeHP(getRandom(20));
   player2.changeHP(getRandom(20));
@@ -95,8 +110,7 @@ $randomButton.addEventListener("click", function () {
   player2.renderHP();
 
   if (player1.hp === 0 || player2.hp === 0) {
-    $randomButton.disabled = true;
-    // $arenas.appendChild(createReloadButton());
+    $arenas.appendChild(createReloadButton());
   }
 
   if (player1.hp === 0 && player1.hp < player2.hp) {
