@@ -1,5 +1,6 @@
 const $arenas = document.querySelector(".arenas");
 const $randomButton = document.querySelector(".button");
+const $button = document.querySelector(".button");
 
 const player1 = {
   playerNumber: 1,
@@ -82,7 +83,6 @@ function renderHP() {
 
 function changeHP(num) {
   this.hp -= num;
-
   if (this.hp <= 0) {
     this.hp = 0;
   }
@@ -90,7 +90,6 @@ function changeHP(num) {
 
 function createReloadButton() {
   const $reloadWrap = createElement("div", "reloadWrap");
-  const $button = document.querySelector(".button");
 
   $button.innerText = "Restart";
 
