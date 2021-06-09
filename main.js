@@ -59,14 +59,14 @@ function createPlayer(playerObj) {
 }
 
 function playerWins(name) {
-  const $winTitle = createElement("div", "winTitle");
+  const $loseTitle = createElement("div", "loseTitle");
   if (name) {
-    $winTitle.innerText = name + " wins";
+    $loseTitle.innerText = name + " wins";
   } else {
-    $winTitle.innerText = "draw";
+    $loseTitle.innerText = "draw";
   }
 
-  return $winTitle;
+  return $loseTitle;
 }
 
 function getRandom(num) {
