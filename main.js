@@ -1,5 +1,5 @@
 const $arenas = document.querySelector(".arenas");
-// const $randomButton = document.querySelector(".button");
+const $randomButton = document.querySelector(".button");
 const $formFight = document.querySelector(".control");
 const HIT = {
   head: 30,
@@ -97,7 +97,7 @@ function changeHP(num) {
 function createReloadButton() {
   const $reloadButtonDiv = createElement("div", "reloadWrap");
   const $reloadButton = createElement("button", "button");
-  $button.innerText = "Restart";
+  $reloadButton.innerText = "Restart";
 
   $reloadButton.addEventListener("click", function () {
     window.location.reload();
@@ -107,25 +107,25 @@ function createReloadButton() {
   $arenas.appendChild($reloadButtonDiv);
 }
 
-// $randomButton.addEventListener("click", function () {
-//   player1.changeHP(getRandom(20));
-//   player2.changeHP(getRandom(20));
-//   player1.renderHP();
-//   player2.renderHP();
+$randomButton.addEventListener("click", function () {
+  player1.changeHP(getRandom(20));
+  player2.changeHP(getRandom(20));
+  player1.renderHP();
+  player2.renderHP();
 
-//   if (player1.hp === 0 || player2.hp === 0) {
-//     $randomButton.disabled = true;
-//     createReloadButton();
-//   }
+  if (player1.hp === 0 || player2.hp === 0) {
+    $randomButton.disabled = true;
+    createReloadButton();
+  }
 
-//   if (player1.hp === 0 && player1.hp < player2.hp) {
-//     $arenas.appendChild(playerWins(player2.name));
-//   } else if (player2.hp === 0 && player2.hp < player1.hp) {
-//     $arenas.appendChild(playerWins(player1.name));
-//   } else if (player2.hp === 0 && player2.hp === 0) {
-//     $arenas.appendChild(playerWins());
-//   }
-// });
+  if (player1.hp === 0 && player1.hp < player2.hp) {
+    $arenas.appendChild(playerWins(player2.name));
+  } else if (player2.hp === 0 && player2.hp < player1.hp) {
+    $arenas.appendChild(playerWins(player1.name));
+  } else if (player2.hp === 0 && player2.hp === 0) {
+    $arenas.appendChild(playerWins());
+  }
+});
 
 $arenas.appendChild(createPlayer(player1));
 $arenas.appendChild(createPlayer(player2));
