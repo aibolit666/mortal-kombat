@@ -1,6 +1,12 @@
 const $arenas = document.querySelector(".arenas");
-const $randomButton = document.querySelector(".button");
-const $button = document.querySelector(".button");
+// const $randomButton = document.querySelector(".button");
+const $formFight = document.querySelector(".control");
+const HIT = {
+  head: 30,
+  body: 25,
+  foot: 20,
+};
+const ATTACK = ["head", "body", "foot"];
 
 const player1 = {
   playerNumber: 1,
@@ -89,37 +95,42 @@ function changeHP(num) {
 }
 
 function createReloadButton() {
-  const $reloadWrap = createElement("div", "reloadWrap");
-
+  const $reloadButtonDiv = createElement("div", "reloadWrap");
+  const $reloadButton = createElement("button", "button");
   $button.innerText = "Restart";
 
-  $arenas.appendChild($reloadWrap);
-  $reloadWrap.appendChild($button);
-
-  $button.addEventListener("click", function () {
+  $reloadButton.addEventListener("click", function () {
     window.location.reload();
   });
-  return $reloadWrap;
+
+  $reloadButtonDiv.appendChild($reloadButton);
+  $arenas.appendChild($reloadButtonDiv);
 }
 
-$randomButton.addEventListener("click", function () {
-  player1.changeHP(getRandom(20));
-  player2.changeHP(getRandom(20));
-  player1.renderHP();
-  player2.renderHP();
+// $randomButton.addEventListener("click", function () {
+//   player1.changeHP(getRandom(20));
+//   player2.changeHP(getRandom(20));
+//   player1.renderHP();
+//   player2.renderHP();
 
-  if (player1.hp === 0 || player2.hp === 0) {
-    $arenas.appendChild(createReloadButton());
-  }
+//   if (player1.hp === 0 || player2.hp === 0) {
+//     $randomButton.disabled = true;
+//     createReloadButton();
+//   }
 
-  if (player1.hp === 0 && player1.hp < player2.hp) {
-    $arenas.appendChild(playerWins(player2.name));
-  } else if (player2.hp === 0 && player2.hp < player1.hp) {
-    $arenas.appendChild(playerWins(player1.name));
-  } else if (player2.hp === 0 && player2.hp === 0) {
-    $arenas.appendChild(playerWins());
-  }
-});
+//   if (player1.hp === 0 && player1.hp < player2.hp) {
+//     $arenas.appendChild(playerWins(player2.name));
+//   } else if (player2.hp === 0 && player2.hp < player1.hp) {
+//     $arenas.appendChild(playerWins(player1.name));
+//   } else if (player2.hp === 0 && player2.hp === 0) {
+//     $arenas.appendChild(playerWins());
+//   }
+// });
 
 $arenas.appendChild(createPlayer(player1));
 $arenas.appendChild(createPlayer(player2));
+
+$formFight.addEventListener("submit", function (e) {
+  e.preventDefault();
+  console.dir($formFight);
+});
