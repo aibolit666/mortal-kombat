@@ -107,25 +107,26 @@ function createReloadButton() {
   $arenas.appendChild($reloadButtonDiv);
 }
 
-$randomButton.addEventListener("click", function () {
-  player1.changeHP(getRandom(20));
-  player2.changeHP(getRandom(20));
-  player1.renderHP();
-  player2.renderHP();
+// $randomButton.addEventListener("click", function () {
+//   player1.changeHP(getRandom(20));
+//   player2.changeHP(getRandom(20));
+//   player1.renderHP();
+//   player2.renderHP();
 
-  if (player1.hp === 0 || player2.hp === 0) {
-    $randomButton.disabled = true;
-    createReloadButton();
-  }
+// if (player1.hp === 0 || player2.hp === 0) {
+//   $randomButton.disabled = true;
+//   createReloadButton();
+// }
 
-  if (player1.hp === 0 && player1.hp < player2.hp) {
-    $arenas.appendChild(playerWins(player2.name));
-  } else if (player2.hp === 0 && player2.hp < player1.hp) {
-    $arenas.appendChild(playerWins(player1.name));
-  } else if (player2.hp === 0 && player2.hp === 0) {
-    $arenas.appendChild(playerWins());
-  }
-});
+// if (player1.hp === 0 && player1.hp < player2.hp) {
+//   $arenas.appendChild(playerWins(player2.name));
+// } else if (player2.hp === 0 && player2.hp < player1.hp) {
+//   $arenas.appendChild(playerWins(player1.name));
+// } else if (player2.hp === 0 && player2.hp === 0) {
+//   $arenas.appendChild(playerWins());
+// }
+
+// });
 
 $arenas.appendChild(createPlayer(player1));
 $arenas.appendChild(createPlayer(player2));
@@ -158,6 +159,32 @@ $formFight.addEventListener("submit", function (e) {
     }
     item.checked = false;
   }
+
+  if (attack.hit === enemy.defence) {
+    enemy.value = 0;
+  }
+  if (enemy.hit === attack.defence) {
+    attack.value = 0;
+  }
+
+  player1.changeHP(attack.value);
+  player2.changeHP(enemy.value);
+  player1.renderHP();
+  player2.renderHP();
+
+  if (player1.hp === 0 || player2.hp === 0) {
+    $randomButton.disabled = true;
+    createReloadButton();
+  }
+
+  if (player1.hp === 0 && player1.hp < player2.hp) {
+    $arenas.appendChild(playerWins(player2.name));
+  } else if (player2.hp === 0 && player2.hp < player1.hp) {
+    $arenas.appendChild(playerWins(player1.name));
+  } else if (player2.hp === 0 && player2.hp === 0) {
+    $arenas.appendChild(playerWins());
+  }
+
   console.log("#### a", attack);
   console.log("#### e", enemy);
 });
