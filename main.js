@@ -56,7 +56,6 @@ const player1 = {
   playerNumber: 1,
   name: "SUBZERO",
   hp: 100,
-  damage: 0,
   changeHP: changeHP,
   elHP: elHP,
   renderHP: renderHP,
@@ -71,7 +70,6 @@ const player2 = {
   playerNumber: 2,
   name: "SONYA",
   hp: 100,
-  damage: 0,
   changeHP: changeHP,
   elHP: elHP,
   renderHP: renderHP,
@@ -195,8 +193,10 @@ function showResult() {
 
   if (player1.hp === 0 && player1.hp < player2.hp) {
     $arenas.appendChild(playerWins(player2.name));
+    generateLogs("end", player2, player1);
   } else if (player2.hp === 0 && player2.hp < player1.hp) {
     $arenas.appendChild(playerWins(player1.name));
+    generateLogs("end", player1, player2);
   } else if (player2.hp === 0 && player2.hp === 0) {
     $arenas.appendChild(playerWins());
   }
@@ -219,8 +219,8 @@ function generateLogs(type, player1, player2) {
       break;
     case "end":
       text = logs[type][getRandom(logs[type].length - 1)]
-        .replace("[playerWins]", this.name)
-        .replace("[playerLose]", this.name);
+        .replace("[playerWins]", player1.name)
+        .replace("[playerLose]", player2.name);
       el = `<p>${text}</p>`;
       break;
     case "hit":
