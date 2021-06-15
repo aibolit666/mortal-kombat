@@ -8,6 +8,7 @@ import {
   ATTACK,
 } from "./const.js";
 import getRandom from "./getrandom.js";
+import { elHP, renderHP, changeHP } from "./hp.js";
 
 const player1 = {
   playerNumber: 1,
@@ -75,22 +76,6 @@ function playerWins(name) {
     generateLogs("draw", player1, player2);
   }
   return $loseTitle;
-}
-
-function elHP() {
-  return document.querySelector(".player" + this.playerNumber + " .life");
-}
-
-function renderHP() {
-  this.elHP().style.width = this.hp + "%";
-}
-
-function changeHP(num) {
-  this.hp -= num;
-  if (this.hp <= 0) {
-    this.hp = 0;
-  }
-  this.damage = num;
 }
 
 function createReloadButton() {
@@ -182,17 +167,19 @@ function generateLogs(type, player1, player2) {
       text = logs[type][getRandom(logs[type].length - 1)]
         .replace("[playerKick]", player2.name)
         .replace("[playerDefence]", player1.name);
-      el = `<p>${time}: ${text} ${-player1.damage} [${player1.hp}/100]<p>`;
+      el = `<p>${time}: ${text} ${-player1.damage} [${player1.hp}/100]</p>`;
       break;
     case "defence":
       text = logs[type][getRandom(logs[type].length - 1)]
         .replace("[playerKick]", player2.name)
         .replace("[playerDefence]", player1.name);
-      el = `<p>${time}: ${text}`;
+      el = `<p>${time}: ${text}</p>`;
       break;
     case "draw":
       el = `<p>${logs[type]}</p>`;
       break;
+    default:
+      el = `<p>${time}: Error</p>`;
   }
   $chat.insertAdjacentHTML("afterbegin", el);
 }
