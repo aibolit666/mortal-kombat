@@ -10,21 +10,29 @@ class Game {
     this.$chat = document.querySelector(".chat");
   }
 
-  player1 = new Player({
-    player: 1,
-    name: "SUBZERO",
-    hp: 100,
-    img: "http://reactmarathon-api.herokuapp.com/assets/subzero.gif",
-    rootSelector: "arenas",
-  });
+  player1;
+  player2;
+  getPlayers = async () => {
+    const body = fetch(
+      "https://reactmarathon-api.herokuapp.com/api/mk/players"
+    ).then((res) => res.json());
+    return body;
+  };
+  // player1 = new Player({
+  //   player: 1,
+  //   name: "SUBZERO",
+  //   hp: 100,
+  //   img: "http://reactmarathon-api.herokuapp.com/assets/subzero.gif",
+  //   rootSelector: "arenas",
+  // });
 
-  player2 = new Player({
-    player: 2,
-    name: "SONYA",
-    hp: 100,
-    img: "http://reactmarathon-api.herokuapp.com/assets/sonya.gif",
-    rootSelector: "arenas",
-  });
+  // player2 = new Player({
+  //   player: 2,
+  //   name: "SONYA",
+  //   hp: 100,
+  //   img: "http://reactmarathon-api.herokuapp.com/assets/sonya.gif",
+  //   rootSelector: "arenas",
+  // });
 
   createReloadButton = () => {
     const $reloadButtonDiv = createElement("div", "reloadWrap");
@@ -138,7 +146,23 @@ class Game {
     this.$chat.insertAdjacentHTML("afterbegin", el);
   };
 
-  start = () => {
+  start = async () => {
+    const players = await this.getPlayers();
+
+    const p1 = players[getRandom(players.length - 1)];
+    const p2 = players[getRandom(players.length - 1)];
+
+    this.player1 = new Player({
+      ...p1,
+      player: 1,
+      rootSelector: "arenas",
+    });
+    this.player2 = new Player({
+      ...p2,
+      player: 2,
+      rootSelector: "arenas",
+    });
+
     this.player1.createPlayer();
     this.player2.createPlayer();
 
