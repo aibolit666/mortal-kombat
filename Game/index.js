@@ -10,29 +10,16 @@ class Game {
     this.$chat = document.querySelector(".chat");
   }
 
-  player1;
-  player2;
   getPlayers = async () => {
-    const body = fetch(
-      "https://reactmarathon-api.herokuapp.com/api/mk/players"
+    const p1 = JSON.parse(localStorage.getItem("player1"));
+    const p2 = await fetch(
+      "https://reactmarathon-api.herokuapp.com/api/mk/player/choose"
     ).then((res) => res.json());
-    return body;
+    return {
+      p1,
+      p2,
+    };
   };
-  // player1 = new Player({
-  //   player: 1,
-  //   name: "SUBZERO",
-  //   hp: 100,
-  //   img: "http://reactmarathon-api.herokuapp.com/assets/subzero.gif",
-  //   rootSelector: "arenas",
-  // });
-
-  // player2 = new Player({
-  //   player: 2,
-  //   name: "SONYA",
-  //   hp: 100,
-  //   img: "http://reactmarathon-api.herokuapp.com/assets/sonya.gif",
-  //   rootSelector: "arenas",
-  // });
 
   createReloadButton = () => {
     const $reloadButtonDiv = createElement("div", "reloadWrap");
@@ -40,7 +27,7 @@ class Game {
     $reloadButton.innerText = "Restart";
 
     $reloadButton.addEventListener("click", function () {
-      window.location.reload();
+      window.location.pathname = "./index.html";
     });
 
     $reloadButtonDiv.appendChild($reloadButton);
@@ -147,10 +134,7 @@ class Game {
   };
 
   start = async () => {
-    const players = await this.getPlayers();
-
-    const p1 = players[getRandom(players.length - 1)];
-    const p2 = players[getRandom(players.length - 1)];
+    const { p1, p2 } = await this.getPlayers();
 
     this.player1 = new Player({
       ...p1,
